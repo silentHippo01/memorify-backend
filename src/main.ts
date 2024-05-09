@@ -9,6 +9,12 @@ async function start() {
   await (await app).listen(PORT, () => {
     console.log(`Server started on port ${PORT}`)
   })
+
+    //использование глобальных гардов
+    ; (await app).useGlobalGuards(
+      //перечень определенных гардов
+      //см. https://docs.nestjs.com/guards
+    )
 }
 
 start()

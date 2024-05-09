@@ -9,8 +9,4 @@ export class AppController {
 
     constructor(private AppService: AppService) { }
 
-    @Get('/users')
-    getUsers() {
-        return this.AppService.getUsers();
-    }
 }

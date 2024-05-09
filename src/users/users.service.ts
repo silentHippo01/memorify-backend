@@ -12,15 +12,20 @@ export class UsersService {
         private userRepository: Repository<Users>
     ) { }
     async createUser(dto: CreateUserDto) {
-        const user = { ...dto };
-
+        const user = await this.userRepository.create(dto);
         return user;
     }
 
     async getAllUsers() {
         const users = await this.userRepository.find();
-        // const users = [{ name: 'Frank', age: 25 }, { name: 'Frank2', age: 251 }];
         return users;
     }
+
+    async getUserByEmail(email: string) {
+        const user = await this.userRepository.findOne({ where: { email: email } });
+
+        return user;
+    }
+
 
 }

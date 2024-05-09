@@ -6,6 +6,10 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { PacksModule } from './packs/packs.module';
+import { CardsModule } from './cards/cards.module';
+import { FilesModule } from './files/files.module';
+import { ServeStaticModule } from "@nestjs/serve-static";
+import * as path from 'path';
 
 @Module({
     controllers: [AppController],
@@ -14,6 +18,9 @@ import { PacksModule } from './packs/packs.module';
         ConfigModule.forRoot({
             envFilePath: `.${process.env.NODE_ENV}.env`,
             isGlobal: true,
+        }),
+        ServeStaticModule.forRoot({
+            rootPath: path.resolve(__dirname, 'static'),
         }),
         TypeOrmModule.forRootAsync({
             imports: [ConfigModule],
@@ -41,7 +48,9 @@ import { PacksModule } from './packs/packs.module';
         }),
         AuthModule,
         UsersModule,
-        PacksModule
+        PacksModule,
+        CardsModule,
+        FilesModule
     ],
 
 })
