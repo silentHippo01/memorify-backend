@@ -1,6 +1,7 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Res } from '@nestjs/common';
 import { PacksService } from './packs.service';
 import { CreatePackDto } from './dto/create-pack.dto';
+import { UpdatePackDto } from './dto/update-pack.dto';
 
 @Controller('packs')
 export class PacksController {
@@ -27,5 +28,20 @@ export class PacksController {
         } catch (e) {
             return res.status(HttpStatus.BAD_REQUEST).json({ message: 'Ошибка при создании колоды', error: e })
         }
+    }
+
+    //добавить guards
+    @Patch('update/:id')
+    updatePack(
+        @Param('id') id: string,
+        @Body() updatePackDto: UpdatePackDto
+    ) {
+        return this.PacksService.updatePack(+id, updatePackDto);
+    }
+
+    //packs/delete/10
+    @Delete('delete/:id')
+    deletePack(@Param('id') id: string) {
+        return this.PacksService.deletePacks(+id);
     }
 }

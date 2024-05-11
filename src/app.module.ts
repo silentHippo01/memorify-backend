@@ -9,6 +9,7 @@ import { PacksModule } from './packs/packs.module';
 import { CardsModule } from './cards/cards.module';
 import { FilesModule } from './files/files.module';
 import { ServeStaticModule } from "@nestjs/serve-static";
+import { ReviewHistoryModule } from './review-history/review-history.module';
 import * as path from 'path';
 
 @Module({
@@ -50,7 +51,8 @@ import * as path from 'path';
         UsersModule,
         PacksModule,
         CardsModule,
-        FilesModule
+        FilesModule,
+        ReviewHistoryModule
     ],
 
 })
