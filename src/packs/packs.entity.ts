@@ -11,7 +11,7 @@ export class Packs {
     title_pack: string;
 
     @Column()
-    author_pack: string;
+    author_pack: number;
 
     @Column()
     avatar_packs: string;

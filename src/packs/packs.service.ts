@@ -13,13 +13,18 @@ export class PacksService {
         private packsRepository: Repository<Packs>
     ) { }
 
+
+    async getUserPacks(id: number) {
+        return await this.packsRepository.find({ where: { author_pack: id } })
+    }
+
     async getAllPacks() {
         const packs = await this.packsRepository.find();
         return packs
     }
 
-    async createPack(dto: CreatePackDto) {
-        const newPack = await this.packsRepository.create(dto);
+    async createPack(dto: CreatePackDto, user_id: number) {
+        const newPack = await this.packsRepository.create({ ...dto, author_pack: user_id });
         return this.packsRepository.save(newPack);
     }
 

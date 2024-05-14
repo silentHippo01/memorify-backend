@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Request, Res, UseGuards } from '@nestjs/common';
 import { PacksService } from './packs.service';
 import { CreatePackDto } from './dto/create-pack.dto';
 import { UpdatePackDto } from './dto/update-pack.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('packs')
 export class PacksController {
@@ -11,16 +12,22 @@ export class PacksController {
         private PacksService: PacksService
     ) { }
 
+    @UseGuards(JwtAuthGuard)
     @Get('/')
-    getPacks() {
-        return this.PacksService.getAllPacks();
+    getUserPacks(@Request() req) {
+        console.log(req.user)
+        const userId = req.user.id;
+        console.log(userId)
+        return this.PacksService.getUserPacks(userId);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Post('/create')
     @HttpCode(HttpStatus.CREATED)
-    createPack(@Body() dto: CreatePackDto, @Res() res: any) {
+    createPack(@Body() dto: CreatePackDto, @Res() res: any, @Request() req) {
         try {
-            const newPack = this.PacksService.createPack(dto);
+            const userId = req.user.id;
+            const newPack = this.PacksService.createPack(dto, userId);
 
             return res.status(HttpStatus.CREATED).json(newPack);
             // return res.status(201).json(newPack);
@@ -31,6 +38,7 @@ export class PacksController {
     }
 
     //добавить guards
+    @UseGuards(JwtAuthGuard)
     @Patch('update/:id')
     updatePack(
         @Param('id') id: string,
@@ -40,6 +48,7 @@ export class PacksController {
     }
 
     //packs/delete/10
+    @UseGuards(JwtAuthGuard)
     @Delete('delete/:id')
     deletePack(@Param('id') id: string) {
         return this.PacksService.deletePacks(+id);

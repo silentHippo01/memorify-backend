@@ -6,12 +6,14 @@ import { UsersModule } from 'src/users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Users } from 'src/users/user.entity';
+import { PacksModule } from 'src/packs/packs.module';
 
 @Module({
   providers: [AuthService],
   controllers: [AuthController],
   imports: [
     forwardRef(() => UsersModule), //нужно чтобы не возникало кольцевой зависимости с UsersModule
+    PacksModule,
     TypeOrmModule.forFeature([Users]),
     JwtModule.register({
       secret: process.env.PRIVATE_KEY || 'SECRET',
