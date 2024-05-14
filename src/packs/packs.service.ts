@@ -4,18 +4,26 @@ import { Packs } from './packs.entity';
 import { Repository } from 'typeorm';
 import { CreatePackDto } from './dto/create-pack.dto';
 import { UpdatePackDto } from './dto/update-pack.dto';
+import { Cards } from 'src/cards/cards.entity';
 
 @Injectable()
 export class PacksService {
 
     constructor(
         @InjectRepository(Packs)
-        private packsRepository: Repository<Packs>
+        private packsRepository: Repository<Packs>,
+
+        @InjectRepository(Cards)
+        private cardsRepository: Repository<Cards>
     ) { }
 
 
     async getUserPacks(id: number) {
         return await this.packsRepository.find({ where: { author_pack: id } })
+    }
+
+    async getCardsByPackId(id: number) {
+        return await this.cardsRepository.find({ where: { id_pack: id } })
     }
 
     async getAllPacks() {

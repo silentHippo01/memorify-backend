@@ -8,7 +8,6 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 export class PacksController {
 
     constructor(
-
         private PacksService: PacksService
     ) { }
 
@@ -19,6 +18,15 @@ export class PacksController {
         const userId = req.user.id;
         console.log(userId)
         return this.PacksService.getUserPacks(userId);
+    }
+
+    //packs/10
+    @UseGuards(JwtAuthGuard)
+    @Get('/:id')
+    getCardsByPackId(
+        @Param('id') id: number,
+    ) {
+        return this.PacksService.getCardsByPackId(id);
     }
 
     @UseGuards(JwtAuthGuard)

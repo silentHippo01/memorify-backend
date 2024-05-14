@@ -4,10 +4,11 @@ import { PacksController } from './packs.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Packs } from './packs.entity';
 import { AuthModule } from 'src/auth/auth.module';
+import { Cards } from 'src/cards/cards.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Packs]),
+    TypeOrmModule.forFeature([Packs, Cards]),
     forwardRef(() => AuthModule)
   ],
   providers: [PacksService],
