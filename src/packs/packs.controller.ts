@@ -14,15 +14,27 @@ export class PacksController {
     @UseGuards(JwtAuthGuard)
     @Get('/')
     getUserPacks(@Request() req) {
-        console.log(req.user)
         const userId = req.user.id;
-        console.log(userId)
         return this.PacksService.getUserPacks(userId);
+    }
+    // @UseGuards(JwtAuthGuard)
+    // @Get('/')
+    // getUserPacks(@Request() req) {
+    //     console.log(req.user)
+    //     const userId = req.user.id;
+    //     console.log(userId)
+    //     return this.PacksService.getUserPacks(userId);
+    // }
+
+    @UseGuards(JwtAuthGuard)
+    @Get('/:id')
+    getPackById(@Param('id') id: number,) {
+        return this.PacksService.getPackById(+id);
     }
 
     //packs/10
     @UseGuards(JwtAuthGuard)
-    @Get('/:id')
+    @Get('/cards/:id')
     getCardsByPackId(
         @Param('id') id: number,
     ) {

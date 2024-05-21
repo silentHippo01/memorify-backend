@@ -10,6 +10,7 @@ export class CardsController {
         private CardsService: CardsService
     ) { }
 
+    // ======= BASIC CRUD ========
     @Get('/')
     getAllCards() {
         return this.CardsService.getAllCards();
@@ -31,7 +32,9 @@ export class CardsController {
 
     @Delete('delete/:id')
     deleteCard(@Param('id') id: string) {
+        console.log(id)
         return this.CardsService.deleteCard(+id);
     }
 
+    // =======  ========
 }

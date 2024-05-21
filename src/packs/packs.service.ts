@@ -22,6 +22,10 @@ export class PacksService {
         return await this.packsRepository.find({ where: { author_pack: id } })
     }
 
+    async getPackById(id: number) {
+        return await this.packsRepository.findOne({ where: { id_pack: id } })
+    }
+
     async getCardsByPackId(id: number) {
         return await this.cardsRepository.find({ where: { id_pack: id } })
     }

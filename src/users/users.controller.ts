@@ -8,7 +8,7 @@ export class UsersController {
 
     constructor(private UsersService: UsersService) { }
 
-    @UseGuards(JwtAuthGuard)
+    // @UseGuards(JwtAuthGuard)
     @Get('/allUsers')
     getUsers() {
         return this.UsersService.getAllUsers();
