@@ -26,15 +26,7 @@ import * as path from 'path';
         TypeOrmModule.forRootAsync({
             imports: [ConfigModule],
             useFactory: (configSevice: ConfigService) => ({
-                // type: 'postgres',
-                // host: process.env.POSTGRES_HOST,
-                // port: Number(process.env.POSTGRES_PORT),
-                // username: process.env.POSTGRES_USER,
-                // password: process.env.POSTGRES_PASSWORD,
-                // database: process.env.POSTGRES_DB,
-                // autoLoadEntities: true,
-                // synchronize: true,
-                // entities: [__dirname + '/**/*.entity{.ts,.js}'],
+
                 type: 'postgres',
                 host: configSevice.get('POSTGRES_HOST'),
                 port: configSevice.get('POSTGRES_PORT'),

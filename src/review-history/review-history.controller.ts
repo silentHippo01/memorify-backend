@@ -11,7 +11,7 @@ export class ReviewHistoryController {
 
     @Post('/save_results')
     saveResults(@Body() dto: saveResultDto) {
-
+        console.log(dto.answers)
         return this.ReviewHistoryService.saveResults(dto)
     }
 }

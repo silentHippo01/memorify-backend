@@ -27,7 +27,7 @@ export class PacksService {
     }
 
     async getCardsByPackId(id: number) {
-        return await this.cardsRepository.find({ where: { id_pack: id } })
+        return await this.cardsRepository.find({ where: { id_pack: id }, order: { id_card: 'DESC' } })
     }
 
     async getAllPacks() {

@@ -9,12 +9,14 @@ export class PacksController {
 
     constructor(
         private PacksService: PacksService
+
     ) { }
 
     @UseGuards(JwtAuthGuard)
     @Get('/')
     getUserPacks(@Request() req) {
         const userId = req.user.id;
+        console.log(userId)
         return this.PacksService.getUserPacks(userId);
     }
     // @UseGuards(JwtAuthGuard)
@@ -25,6 +27,12 @@ export class PacksController {
     //     console.log(userId)
     //     return this.PacksService.getUserPacks(userId);
     // }
+
+    @UseGuards(JwtAuthGuard)
+    @Get('/all')
+    getAllPacks() {
+        return this.PacksService.getAllPacks();
+    }
 
     @UseGuards(JwtAuthGuard)
     @Get('/:id')
@@ -70,7 +78,8 @@ export class PacksController {
     //packs/delete/10
     @UseGuards(JwtAuthGuard)
     @Delete('delete/:id')
-    deletePack(@Param('id') id: string) {
+    deletePack(@Param('id') id: number) {
+        console.log(id, 'id')
         return this.PacksService.deletePacks(+id);
     }
 }
